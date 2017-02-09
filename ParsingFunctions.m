@@ -1308,7 +1308,11 @@ NSString * generateMethodLines(Class someclass,BOOL isInstanceMethod,NSMutableAr
                     
 		if (methodArgs>2){
 			NSArray *selValuesArray=[SelectorNameNS componentsSeparatedByString:@":"];        
-			for (unsigned i=2; i<methodArgs; i++){ 
+			if (methodArgs>selValuesArray.count+2) {
+				printf("Warning for [%s %s]: methodArgs is too large (%d > %d)\n",[NSStringFromClass(someclass) UTF8String],[SelectorNameNS UTF8String],methodArgs,selValuesArray.count+2);
+				NSLog(@"Warning for [%@ %@]: methodArgs is too large (%d > %d)",NSStringFromClass(someclass),SelectorNameNS,methodArgs,selValuesArray.count+2);
+			}
+			for (unsigned i=2; i<methodArgs && i<selValuesArray.count+2; i++){
 				char * methodType= method_copyArgumentType( currentMethod,i);
 				NSString *methodTypeSameAsProperty=nil;
 				if (methodArgs==3){
