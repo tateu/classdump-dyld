@@ -733,7 +733,7 @@ extern "C" int parseImage(char *image,BOOL writeToDisk,NSString *outputDir,BOOL 
 		}
 		
 		// Write strings to disk or print out
-		NSError *writeError;
+		NSError *writeError = nil;
 		if (writeToDisk){
 			
 			[[NSFileManager defaultManager] createDirectoryAtPath:writeDir withIntermediateDirectories:YES attributes:nil error:nil];
@@ -798,7 +798,7 @@ extern "C" int parseImage(char *image,BOOL writeToDisk,NSString *outputDir,BOOL 
 			structsString=[[[structsString autorelease] stringByAppendingString:copyrightString] retain];
 			[copyrightString release];
 		}
-		NSError *writeError;
+		NSError *writeError = nil;
 		if ([classesInStructs count]>0){
 			
 			structsString=[[[structsString autorelease] stringByAppendingString:@"\n@class "] retain];
@@ -1055,7 +1055,7 @@ extern "C" int parseImage(char *image,BOOL writeToDisk,NSString *outputDir,BOOL 
 			}
 			
 		
-			NSError *error2;
+			NSError *error2 = nil;
 			CDLog(@"Finished fetching symbols for %s\n",image);
 			if ([symbolsString length]>0){
 				if (writeToDisk){
@@ -1344,7 +1344,7 @@ int main(int argc, char **argv, char **envp) {
 		if (recursive){
 			
 			NSFileManager *fileman=[[NSFileManager alloc ] init];
-			NSError *error;
+			NSError *error = nil;
 			[fileman createDirectoryAtPath:outputDir withIntermediateDirectories:YES attributes:nil error:&error];
 			if (error){
 				NSLog(@"Could not create directory %@. Check permissions.",outputDir);
@@ -1365,7 +1365,7 @@ int main(int argc, char **argv, char **envp) {
 		else{
 			if (image){
 				
-				NSError *error;
+				NSError *error = nil;
 				NSFileManager *fileman=[[NSFileManager alloc ] init];	
 				NSString *imageString=nil;	
 				if (outputDir){
